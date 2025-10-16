@@ -1,4 +1,4 @@
-package com.klu.ecommerce.config;
+package com.klu.ecommerce;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
