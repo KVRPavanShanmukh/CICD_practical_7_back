@@ -15,18 +15,17 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .csrf().disable() // adjust as needed
+            .csrf().disable() // keep or change depending on your needs
             .authorizeRequests(authorize -> authorize
-                // allow public GET endpoints
-                .antMatchers(HttpMethod.GET, "/products/**", "/public/**").permitAll()
-                // allow login and static resources
+                // public GET endpoints
+                .antMatchers(HttpMethod.GET, "/products/**", "/api/public/**").permitAll()
+                // allow static resources and login page
                 .antMatchers("/login", "/css/**", "/js/**", "/images/**").permitAll()
-                // admin-only endpoints
+                // admin endpoints require ADMIN role
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                // any other request requires authentication
+                // all other requests require authentication
                 .anyRequest().authenticated()
             )
-            // default form login (customize as needed)
             .formLogin(Customizer.withDefaults())
             .httpBasic(Customizer.withDefaults());
 
